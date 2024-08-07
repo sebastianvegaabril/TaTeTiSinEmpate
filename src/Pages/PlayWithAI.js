@@ -18,6 +18,45 @@ const PlayWithAI = ({}) => {
   const [playerOneWins, setPlayerOneWin] = useState(0);
   const [playerTwoWins, setPlayerTwoWin] = useState(0);
 
+  useEffect(() => {
+    if(!isXTurn){
+      const newSquares = squares.slice();
+      const newXQueue = xQueue.slice();
+      if (newXQueue.length > 2) {
+        newSquares[newXQueue[0]] = <span style={{ color: "#4C4CFF" }}>✕</span>;
+        setSquares(newSquares);
+      }
+
+      setTimeout(() => {  
+        const numbers = []
+        const newCircleBools = circleBools.slice();
+        const newCircleQueue = circleQueue.slice();
+
+        for(let i = 0; i < xBools.length; i++){
+          if(xBools[i] === false && circleBools[i] === false){
+            numbers.push(i);
+          }
+        }
+
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        newSquares[numbers[randomIndex]] = "◯";
+        newCircleBools[numbers[randomIndex]] = true;
+        newCircleQueue.push(numbers[randomIndex]);
+
+        if (newCircleQueue.length > 3) {
+            newCircleBools[newCircleQueue[0]] = false;
+            newSquares[newCircleQueue[0]] = null;
+            newCircleQueue.shift();
+        }
+
+        setCircleQueue(newCircleQueue);
+        setCircleBools(newCircleBools);
+        setSquares(newSquares);
+        setTurn(true);
+        }, 400); 
+    };
+  }, [isXTurn]);  
+
   const handleBoardData = (data) => {
     if(data.winner === "la ✕"){
       setWinner(data.winner);
@@ -43,7 +82,7 @@ const PlayWithAI = ({}) => {
   }
 
   const handleClick = (i) => {
-    if (gameOver || squares[i] || xBools[i] || circleBools[i]) {
+    if (gameOver || squares[i] || xBools[i] || circleBools[i] || !isXTurn) {
       return;
     }
 
@@ -52,11 +91,6 @@ const PlayWithAI = ({}) => {
     const newXBools = xBools.slice();
     const newXQueue = xQueue.slice();
     const newCircleQueue = circleQueue.slice();
-
-    if (newCircleQueue.length > 2) {
-      setSquares(newSquares);
-      newSquares[newCircleQueue[0]] = (<span style={{ color: "#FF3232" }}>◯</span>);
-    }
 
     if (newXQueue.length > 2) {
       newSquares[newXQueue[0]] = <span style={{ color: "#4C4CFF" }}>✕</span>;
