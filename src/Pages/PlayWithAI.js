@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Board from "../Components/Board";
 import github from "../assets/icons8-github-50.png";
+import Score from "../Components/Score"
+import WinnerMessage from "../Components/WinnerMessage"
 import { Link } from "react-router-dom";
 //import "./index.css";
 
@@ -115,6 +117,18 @@ const PlayWithAI = ({}) => {
         circleBools={circleBools}
         xBools={xBools}
         onBoardData={handleBoardData}
+        />
+
+      {winner && (
+          <WinnerMessage
+            winner = {winner}
+            onClick = {handleRestart}
+          />
+        )}
+
+      <Score
+        playerOneWins={playerOneWins}
+        playerTwoWins={playerTwoWins}
         />
     </div>
   </>
