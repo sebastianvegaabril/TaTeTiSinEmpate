@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Board from "../Components/Board";
 import github from "../assets/icons8-github-50.png";
+import { Link } from "react-router-dom";
+import "./Play.css"
 
 const Play = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
@@ -89,6 +91,12 @@ const Play = () => {
 
   return (
     <>
+      <Link to="/" className="link">
+          <div className="backToHome">
+            <p>Back To Home</p>
+          </div>
+      </Link>
+
       <div
         className="github"
         onClick={() =>

@@ -1,0 +1,11 @@
+.backToHome{
+    position: absolute;
+    left: 25px;
+    top: 15px;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
