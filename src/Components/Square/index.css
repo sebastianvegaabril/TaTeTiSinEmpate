@@ -1,0 +1,32 @@
+.square {
+  width: 140px;
+  height: 140px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+  cursor: pointer;
+  color: white;
+  border: 3px solid white;
+}
+
+.square:nth-child(3n + 1) {
+  border-left-color: transparent;
+}
+
+.square:nth-child(-n + 3) {
+  border-top-color: transparent;
+}
+
+.square:nth-child(3n) {
+  border-right-color: transparent;
+}
+
+.square:nth-last-child(-n + 3) {
+  border-bottom-color: transparent;
+}
+
+.square:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
