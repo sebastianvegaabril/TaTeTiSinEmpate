@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Board from "../Components/Board";
+import Score from "../Components/Score"
+import WinnerMessage from "../Components/WinnerMessage"
 import github from "../assets/icons8-github-50.png";
 import { Link } from "react-router-dom";
 import "./Play.css"
@@ -118,25 +120,16 @@ const Play = () => {
         />
 
         {winner && (
-        <div className="message">
-            {`¡Ganó ${winner}!`}
-            <button className="btn" onClick={handleRestart}>
-              REINICIAR
-            </button>
-          </div>
+          <WinnerMessage
+            winner = {winner}
+            onClick = {handleRestart}
+          />
         )}
 
-        <div className="counter">
-          <div className="playerOne">
-            <p className="playerTitle">Jugador Uno</p>
-            <p className="playerWins">{playerOneWins}</p>
-          </div>
-          <div className="playerTwo">
-            <p className="playerTitle">Jugador Dos</p>
-            <p className="playerWins">{playerTwoWins}</p>
-          </div>
-        </div>
-
+        <Score
+          playerOneWins={playerOneWins}
+          playerTwoWins={playerTwoWins}
+        />
 
       </div>
     </>
