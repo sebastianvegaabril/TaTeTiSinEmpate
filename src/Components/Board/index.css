@@ -30,6 +30,7 @@
   display: flex;
   color: white;
   gap: 30px;
+  padding: 10px;
 }
 
 .counter::before {
