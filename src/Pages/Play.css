@@ -9,3 +9,7 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.backToHome:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
