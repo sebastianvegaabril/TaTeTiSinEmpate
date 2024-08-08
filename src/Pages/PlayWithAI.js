@@ -204,7 +204,7 @@ const PlayWithAI = () => {
       <Link to="/" className="link">
         <div style={{ position: 'relative' }}>
           <div className="backToHome">
-            <p>Back To Home</p>
+            <p>VOLVER ATRAS</p>
           </div>
         </div>
       </Link>
