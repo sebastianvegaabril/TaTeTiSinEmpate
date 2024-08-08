@@ -6,7 +6,7 @@ import WinnerMessage from "../Components/WinnerMessage"
 import { Link } from "react-router-dom";
 //import "./index.css";
 
-const PlayWithAI = ({}) => {
+const PlayWithAI = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [isXTurn, setTurn] = useState(true);
   const [xBools, setXBools] = useState(Array(9).fill(false));

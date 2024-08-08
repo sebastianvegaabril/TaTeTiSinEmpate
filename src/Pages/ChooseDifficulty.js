@@ -17,14 +17,14 @@ const HomePage = () => {
       </div>
       <div className="container">
         <header className="header">Ta Te Ti Sin Empate</header>
-        <Link to="/play" className="link">
+        <Link to="/playwithai/hard" className="link">
           <div className="mode">
-            <p>1 VS 1</p>
+            <p>FACIL</p>
           </div>
         </Link>
-        <Link to="/playwithai/choose-difficulty" className="link">
+        <Link to="/playwithai/hard" className="link">
           <div className="mode">
-          <p>1 VS AI</p>
+          <p>DIFICIL</p>
           </div>
         </Link>
       </div>

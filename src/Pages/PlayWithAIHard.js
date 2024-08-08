@@ -66,12 +66,12 @@ const PlayWithAIHard = () => {
         }
     }
 
-    return winningMoves.length > 0 ? winningMoves : [];
+    return winningMoves;
 };
 
 
   useEffect(() => {
-    if(!isXTurn){
+    if(!isXTurn && !winner){
       const newSquares = squares.slice();
       const newXQueue = xQueue.slice();
       if (newXQueue.length > 2) {
@@ -90,25 +90,8 @@ const PlayWithAIHard = () => {
                 numbers.push(i);
             }
         }
-        
-        if(newCircleQueue.length >= 5){
-            const adjacents = getAdjacentIndices(newCircleQueue[0]);
-            console.log(adjacents);
-            const possibilities = adjacents.filter(index => numbers.includes(index));
-            const randomIndex = Math.floor(Math.random() * possibilities.length);
-            newSquares[possibilities[randomIndex]] = "◯";
-            console.log(possibilities[randomIndex]);
-            newCircleBools[possibilities[randomIndex]] = true;
-            newCircleQueue.push(possibilities[randomIndex]);
 
-            setCircleQueue(newCircleQueue);
-            setCircleBools(newCircleBools);
-            setSquares(newSquares);
-            setTurn(true);
-            return;
-        }
         if (newCircleQueue.length > 0){
-            console.log('entre');
             let almostWin = almostWinner();
             if(almostWin.length > 0){
                 const possibilities = almostWin.filter(index => numbers.includes(index));
