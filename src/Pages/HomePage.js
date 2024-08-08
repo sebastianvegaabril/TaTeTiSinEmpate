@@ -22,7 +22,7 @@ const HomePage = () => {
             <p>1 VS 1</p>
           </div>
         </Link>
-        <Link to="/playwithai" className="link">
+        <Link to="/playwithai/easy" className="link">
           <div className="mode">
           <p>1 VS AI</p>
           </div>
