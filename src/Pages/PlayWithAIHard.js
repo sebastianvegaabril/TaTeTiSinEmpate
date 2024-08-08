@@ -202,38 +202,6 @@ const PlayWithAIHard = () => {
     setTurn(!isXTurn);
   };
 
-  const getAdjacentIndices = (index) => {
-    const offsets = [
-        -3, 3, 
-        -1, 1,  
-        -4, -2, 
-        2, 4  
-    ];
-
-    const isValid = (index) => {
-        return index >= 0 && index < 9;
-    }
-
-    const adjacents = offsets
-        .map(offset => index + offset)
-        .filter(newIndex => {
-            if (!isValid(newIndex)) return false;
-
-            const rowIndex = Math.floor(index / 3);
-            const colIndex = index % 3;
-            const newRow = Math.floor(newIndex / 3);
-            const newCol = newIndex % 3;
-
-            const sameRow = newRow === rowIndex;
-            const sameCol = newCol === colIndex;
-            const isHorizontal = Math.abs(newCol - colIndex) === 1;
-            const isVertical = Math.abs(newRow - rowIndex) === 1;
-
-            return (sameRow && isHorizontal) || (sameCol && isVertical) || (Math.abs(newRow - rowIndex) === 1 && Math.abs(newCol - colIndex) === 1);
-        });
-    return adjacents;
-  }
-
   return (
     <>
       <Link to="/" className="link">
