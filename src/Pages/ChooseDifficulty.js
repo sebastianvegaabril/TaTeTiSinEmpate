@@ -7,6 +7,13 @@ import "./HomePage.css";
 const HomePage = () => {
   return (
     <>
+      <Link to="/" className="link">
+          <div className="backToHome">
+            <p>Back To Home</p>
+          </div>
+      </Link>
+
+
     <div
         className="github"
         onClick={() =>
@@ -17,7 +24,7 @@ const HomePage = () => {
       </div>
       <div className="container">
         <header className="header">Ta Te Ti Sin Empate</header>
-        <Link to="/playwithai/hard" className="link">
+        <Link to="/playwithai/easy" className="link">
           <div className="mode">
             <p>FACIL</p>
           </div>

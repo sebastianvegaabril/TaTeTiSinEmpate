@@ -13,3 +13,19 @@
 .backToHome:hover {
     background-color: rgba(255, 255, 255, 0.15);
 }
+
+@media (max-width: 768px) {
+    .backToHome{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+        color: white;
+        top: 7px;
+        border-radius: 10px;
+        border: 1px solid white;
+        padding-left: 10px;
+        padding-right: 10px;
+        z-index: 34234324320493243;
+    }
+}
