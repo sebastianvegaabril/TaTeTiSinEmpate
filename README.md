@@ -1,1 +1,1 @@
-Deploy in https://ta-te-ti-sin-empate.vercel.app/
+Deployed in https://ta-te-ti-sin-empate.vercel.app/
