@@ -105,10 +105,15 @@ useEffect(() => {
         newCircleBools[possibilities[randomIndex]] = true;
         newCircleQueue.push(possibilities[randomIndex]);
 
+        
         if (newCircleQueue.length > 3) {
           newCircleBools[newCircleQueue[0]] = false;
           newSquares[newCircleQueue[0]] = null;
           newCircleQueue.shift();
+        }
+        
+        if(newCircleQueue.length > 2){
+          newSquares[newCircleQueue[0]] = <span style={{color: "#FF0000" }}>◯</span>;
         }
 
         setCircleQueue(newCircleQueue);
@@ -123,11 +128,16 @@ useEffect(() => {
     newSquares[numbers[randomIndex]] = "◯";
     newCircleBools[numbers[randomIndex]] = true;
     newCircleQueue.push(numbers[randomIndex]);
-
+    
+    
     if (newCircleQueue.length > 3) {
       newCircleBools[newCircleQueue[0]] = false;
       newSquares[newCircleQueue[0]] = null;
       newCircleQueue.shift();
+    }
+    
+    if(newCircleQueue.length > 2){
+      newSquares[newCircleQueue[0]] = <span style={{color: "#FF0000" }}>◯</span>;
     }
 
     setCircleQueue(newCircleQueue);

@@ -108,6 +108,10 @@ useEffect(() => {
               newSquares[newCircleQueue[0]] = null;
               newCircleQueue.shift();
             }
+
+            if(newCircleQueue.length > 2){
+                newSquares[newCircleQueue[0]] = <span style={{color: "#FF0000" }}>◯</span>;
+            }
   
             setCircleQueue(newCircleQueue);
             setCircleBools(newCircleBools);
@@ -126,6 +130,10 @@ useEffect(() => {
           newCircleBools[newCircleQueue[0]] = false;
           newSquares[newCircleQueue[0]] = null;
           newCircleQueue.shift();
+        }
+
+        if(newCircleQueue.length > 2){
+            newSquares[newCircleQueue[0]] = <span style={{color: "#FF0000" }}>◯</span>;
         }
   
         setCircleQueue(newCircleQueue);
