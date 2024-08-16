@@ -70,69 +70,74 @@ const PlayWithAIHard = () => {
 };
 
 
-  useEffect(() => {
-    if(!isXTurn && !winner){
+useEffect(() => {
+    if (!isXTurn && !winner) {
       const newSquares = squares.slice();
       const newXQueue = xQueue.slice();
       if (newXQueue.length > 2) {
-        newSquares[newXQueue[0]] = <span style={{ color: "#4C4CFF" }}>✕</span>;
+        newSquares[newXQueue[0]] = <span style={{color: "#4C4CFF" }}>✕</span>;
         setSquares(newSquares);
       }
-
-      setTimeout(() => {  
-        const numbers = []
+  
+      const timer = setTimeout(() => {  
+        if (winner) {
+          return;
+        }
+  
+        const numbers = [];
         const newCircleBools = circleBools.slice();
         const newCircleQueue = circleQueue.slice();
-
-        
-        for(let i = 0; i < xBools.length; i++){
-            if(xBools[i] === false && circleBools[i] === false){
-                numbers.push(i);
-            }
+  
+        for (let i = 0; i < xBools.length; i++) {
+          if (!xBools[i] && !circleBools[i]) {
+            numbers.push(i);
+          }
         }
-
-        if (newCircleQueue.length > 0){
-            let almostWin = almostWinner();
-            if(almostWin.length > 0){
-                const possibilities = almostWin.filter(index => numbers.includes(index));
-                const randomIndex = Math.floor(Math.random() * possibilities.length);
-                newSquares[possibilities[randomIndex]] = "◯";
-                newCircleBools[possibilities[randomIndex]] = true;
-                newCircleQueue.push(possibilities[randomIndex]);
-                
-                if (newCircleQueue.length > 3) {
-                    newCircleBools[newCircleQueue[0]] = false;
-                    newSquares[newCircleQueue[0]] = null;
-                    newCircleQueue.shift();
-                }
-
-                setCircleQueue(newCircleQueue);
-                setCircleBools(newCircleBools);
-                setSquares(newSquares);
-                setTurn(true);
-                return;
+  
+        if (newCircleQueue.length > 0) {
+          let almostWin = almostWinner();
+          if (almostWin.length > 0) {
+            const possibilities = almostWin.filter(index => numbers.includes(index));
+            const randomIndex = Math.floor(Math.random() * possibilities.length);
+            newSquares[possibilities[randomIndex]] = "◯";
+            newCircleBools[possibilities[randomIndex]] = true;
+            newCircleQueue.push(possibilities[randomIndex]);
+  
+            if (newCircleQueue.length > 3) {
+              newCircleBools[newCircleQueue[0]] = false;
+              newSquares[newCircleQueue[0]] = null;
+              newCircleQueue.shift();
             }
-
+  
+            setCircleQueue(newCircleQueue);
+            setCircleBools(newCircleBools);
+            setSquares(newSquares);
+            setTurn(true);
+            return;
+          }
         }
-        
+  
         const randomIndex = Math.floor(Math.random() * numbers.length);
         newSquares[numbers[randomIndex]] = "◯";
         newCircleBools[numbers[randomIndex]] = true;
         newCircleQueue.push(numbers[randomIndex]);
-
+  
         if (newCircleQueue.length > 3) {
-            newCircleBools[newCircleQueue[0]] = false;
-            newSquares[newCircleQueue[0]] = null;
-            newCircleQueue.shift();
+          newCircleBools[newCircleQueue[0]] = false;
+          newSquares[newCircleQueue[0]] = null;
+          newCircleQueue.shift();
         }
-
+  
         setCircleQueue(newCircleQueue);
         setCircleBools(newCircleBools);
         setSquares(newSquares);
         setTurn(true);
-        }, 400); 
-    };
-  }, [isXTurn]);  
+      }, 400);
+  
+      return() =>clearTimeout(timer);
+    }
+  }, [isXTurn, winner]);
+  
 
   const handleBoardData = (data) => {
     if(data.winner === "la ✕"){

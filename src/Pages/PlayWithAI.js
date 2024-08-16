@@ -69,78 +69,88 @@ const PlayWithAI = () => {
     return winningMoves;
 };
 
-  useEffect(() => {
-    if(!isXTurn){
-      const newSquares = squares.slice();
-      const newXQueue = xQueue.slice();
-      if (newXQueue.length > 2) {
-        newSquares[newXQueue[0]] = <span style={{ color: "#4C4CFF" }}>✕</span>;
-        setSquares(newSquares);
+useEffect(() => {
+  if (gameOver || isXTurn) {
+    return;
+  }
+
+  const newSquares = squares.slice();
+  const newXQueue = xQueue.slice();
+  if (newXQueue.length > 2) {
+    newSquares[newXQueue[0]] = <span style={{color: "#4C4CFF" }}>✕</span>;
+    setSquares(newSquares);
+  }
+
+  const timer = setTimeout(() => {
+    if (gameOver) {
+      return;
+    }
+
+    const numbers = [];
+    const newCircleBools = circleBools.slice();
+    const newCircleQueue = circleQueue.slice();
+
+    for (let i = 0; i < xBools.length; i++) {
+      if (xBools[i] === false && circleBools[i] === false) {
+        numbers.push(i);
       }
+    }
 
-      setTimeout(() => {  
-        const numbers = []
-        const newCircleBools = circleBools.slice();
-        const newCircleQueue = circleQueue.slice();
-
-        for(let i = 0; i < xBools.length; i++){
-          if(xBools[i] === false && circleBools[i] === false){
-            numbers.push(i);
-          }
-        }
-
-        if (newXQueue.length === 2){
-          let almostWin = almostWinner();
-            if(almostWin.length > 0){
-                const possibilities = almostWin.filter(index => numbers.includes(index));
-                const randomIndex = Math.floor(Math.random() * possibilities.length);
-                newSquares[possibilities[randomIndex]] = "◯";
-                newCircleBools[possibilities[randomIndex]] = true;
-                newCircleQueue.push(possibilities[randomIndex]);
-                
-                if (newCircleQueue.length > 3) {
-                    newCircleBools[newCircleQueue[0]] = false;
-                    newSquares[newCircleQueue[0]] = null;
-                    newCircleQueue.shift();
-                }
-
-                setCircleQueue(newCircleQueue);
-                setCircleBools(newCircleBools);
-                setSquares(newSquares);
-                setTurn(true);
-                return;
-            }
-        }
-
-        const randomIndex = Math.floor(Math.random() * numbers.length);
-        newSquares[numbers[randomIndex]] = "◯";
-        newCircleBools[numbers[randomIndex]] = true;
-        newCircleQueue.push(numbers[randomIndex]);
+    if (newXQueue.length === 2) {
+      const almostWin = almostWinner();
+      if (almostWin.length > 0) {
+        const possibilities = almostWin.filter(index => numbers.includes(index));
+        const randomIndex = Math.floor(Math.random() * possibilities.length);
+        newSquares[possibilities[randomIndex]] = "◯";
+        newCircleBools[possibilities[randomIndex]] = true;
+        newCircleQueue.push(possibilities[randomIndex]);
 
         if (newCircleQueue.length > 3) {
-            newCircleBools[newCircleQueue[0]] = false;
-            newSquares[newCircleQueue[0]] = null;
-            newCircleQueue.shift();
+          newCircleBools[newCircleQueue[0]] = false;
+          newSquares[newCircleQueue[0]] = null;
+          newCircleQueue.shift();
         }
 
         setCircleQueue(newCircleQueue);
         setCircleBools(newCircleBools);
         setSquares(newSquares);
         setTurn(true);
-        }, 400); 
-    };
-  }, [isXTurn]);  
+        return;
+      }
+    }
+
+    const randomIndex = Math.floor(Math.random() * numbers.length);
+    newSquares[numbers[randomIndex]] = "◯";
+    newCircleBools[numbers[randomIndex]] = true;
+    newCircleQueue.push(numbers[randomIndex]);
+
+    if (newCircleQueue.length > 3) {
+      newCircleBools[newCircleQueue[0]] = false;
+      newSquares[newCircleQueue[0]] = null;
+      newCircleQueue.shift();
+    }
+
+    setCircleQueue(newCircleQueue);
+    setCircleBools(newCircleBools);
+    setSquares(newSquares);
+    setTurn(true);
+  }, 400);
+
+  return() =>clearTimeout(timer);
+
+}, [isXTurn, gameOver]);
+
 
   const handleBoardData = (data) => {
     if(data.winner === "la ✕"){
+      setGameOver(true);
       setWinner(data.winner);
       setPlayerOneWin(playerOneWins + 1);
-      setGameOver(true);
     }
     else if(data.winner === "el ◯"){
+      setGameOver(true);
       setWinner(data.winner);
       setPlayerTwoWin(playerTwoWins + 1);
-      setGameOver(true);
     }
   };
 
